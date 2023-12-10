@@ -1,0 +1,137 @@
+# REACT
+
+
+## react
+- 사용자 정의 태그를 만드는 것이다.
+- 사용자 정의 태그 = 부품
+- 내 태그를 공유할수 있고 상대방의 태그를 내가 쓸수 있다.
+
+
+### class vs function
+- 개정판 은 함수용
+
+
+## react 설치
+### react project 생성 명령어
+- npx create-react-app "appname"
+- 현재 폴더에서는 npx create-react-app .
+- npx 를 사용 할려면 node.js 가 필요하다
+
+### react 명령어
+- npm start : 개발 서버를 실행
+- npm run build : 개발된 프로젝트 빌드업하기
+- npm serve build : 빌드한것 로컬에 실행하기
+
+- npx serve -s build : build 파일에 있는 index.html 파일 실행 (간편하게 실행시키는 방법) / 개발환경 버전이 아니고 서비스 파일을 실행시키기 위한 버전
+
+- npm test
+- npm run eject
+
+
+## react 수정
+
+### react 파일구조
+- src/index.js : 입구파일 구조 (react 서버를 실행시키면 제일 먼저 이파일을 찾고 실행한다)
+
+```
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import './index.css';
+
+{/*. 은 현재 디렉토리(src) 안에 있는 App.js 를 실행시킨다 이때 js 는 생략된 구조 */}
+import App from './App';
+
+import reportWebVitals from './reportWebVitals';
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(
+  <React.StrictMode>
+    <App /> {/* react 를 실행하면 보이는 초기 UI*/}
+  </React.StrictMode>
+);
+
+// If you want to start measuring performance in your app, pass a function
+// to log results (for example: reportWebVitals(console.log))
+// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+reportWebVitals();
+
+```
+
+- src/App.js
+
+import logo from './logo.svg';
+import './App.css';
+/*App.css import*/
+
+
+function App() {
+  return (
+    <div className="App">
+      <header className="App-header">
+        <img src={logo} className="App-logo" alt="logo" />
+        <p>
+          Edit <code>src/App.js</code> and save to reload.
+        </p>
+        <a
+          className="App-link"
+          href="https://reactjs.org"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Learn React
+        </a>
+      </header>
+    </div>
+  );
+}
+
+export default App;
+
+
+
+## 컴포넌트
+- 리액트가 만들어진 앱을 이루는 최소한의 단위이다.
+
+### 컴포넌트 만들기
+- 컴포넌트 를 만들기 위해서는 함수를 만들어야 한다.
+- 컴포넌트 는 function + 대문자로 시작하는 이름 을 만든다.
+
+ex)
+function Header(){
+    return <header>
+            <h1><a href="/">Web</a></h1>
+        </header>
+}
+
+## props
+- 컴포넌트의 속성에 지정해주는 방식?
+- react 의 속성
+
+### 사용방법
+- 컴포넌트 함수 안에 매개변수 이름을 하나 작성한다 (이름은 상관없음)
+- 컴포넌트에 있는 옵션을 접근하기 위해서는 <pros 이름>.<요소이름>
+- html 에 요소를 넣기 위해서는 {<pros 이름>.<요소이름>} 사용하면 된다.
+
+### html 요소를 pros 를 줘서 하드 코딩 방지
+function App() {
+      const topics = [
+          {id:1 , title:'html',body:'html is ...'},
+          {id:2 , title:'css',body: 'css is ...'},
+          {id:3 , title:'javascript',body: 'javascript is ...'}
+      ] // 변하지 않는 상수로 만들떄는 const 를 사용한다.
+
+  return (
+    <div>
+        <Header title="React"></Header> {/*사용자 정의 태그로 Header 를 가져온다.*/}
+        <Nav topics={topics}></Nav>
+        <Article title="Welcome" body="Hello , WEB"></Article>
+
+    </div>
+  );
+}
+
+- 컴포넌트 안에 {변수명} 을 주면 요소가 전달된다.
+
+### each child in a list should have a unique "key" prop
+- 리스트에 저장될떄는 key 가 필요하다
+- 리액트가 자동으로 생성되는 태그에 대해 react 의 태그 추적을 위해 key 를 줘야 한다.
