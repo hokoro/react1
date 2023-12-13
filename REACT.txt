@@ -135,3 +135,33 @@ function App() {
 ### each child in a list should have a unique "key" prop
 - 리스트에 저장될떄는 key 가 필요하다
 - 리액트가 자동으로 생성되는 태그에 대해 react 의 태그 추적을 위해 key 를 줘야 한다.
+
+
+## 이벤트(Event)
+- onChangeMode 라는 옵션을 사용해 함수를 전달한다.
+
+<Header title="React" onChangeMode={function(){
+
+}}></Header> {/*사용자 정의 태그로 Header 를 가져온다.*/}
+
+- Header 를 클릭 했을떄 onChangeMode 에 있는 함수가 호출된다.
+
+
+- 해당 컴포넌트에도 함수에 대한 정보를 작성한다 (onClick)
+function Header(pros){
+    // console.log('pros',pros,pros.title)
+    return <header>
+            <h1><a href="/" onClick={function(event){  // onClick 함수의 첫번째 파라미터로 이벤트를 전달한다. 이벤트 상황을 전달하는 여러가지 정보와 기능이 존재한다.
+
+            }}>{pros.title}</a></h1>
+        </header>
+}
+function Header(pros){
+    // console.log('pros',pros,pros.title)
+    return <header>
+            <h1><a href="/" onClick={(event)=>{ // allow function 으로 function 명시를 안하고 함수를 사용하는 방법이다.
+                event.preventDefault(); // preventDefault -> 해당 함수를 실행하는 태그의 기본동작을 방지한다. / 즉 클릭시 a 태그의 역할인 reload 가 일어나지 않는다.
+                pros.onChangeMode();  // 사용하는 함수를 호출
+            }}>{pros.title}</a></h1>
+        </header>
+}

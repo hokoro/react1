@@ -5,7 +5,10 @@ import './App.css';
 function Header(pros){
     // console.log('pros',pros,pros.title)
     return <header>
-            <h1><a href="/">{pros.title}</a></h1>
+            <h1><a href="/" onClick={(event)=>{ // allow function 으로 function 명시를 안하고 함수를 사용하는 방법이다.
+                event.preventDefault(); // preventDefault -> 해당 함수를 실행하는 태그의 기본동작을 방지한다. / 즉 클릭시 a 태그의 역할인 reload 가 일어나지 않는다.
+                pros.onChangeMode();  // 사용하는 함수를 호출
+            }}>{pros.title}</a></h1>
         </header>
 }
 function Nav(pros){
@@ -13,7 +16,10 @@ function Nav(pros){
     ]
     for(let i=0;i<pros.topics.length;i++){
         let t = pros.topics[i]; // 아래 상수에서 선언한 데이터
-        lis.push(<li key={t.id}><a href={'/read' + t.id}>{t.title}</a></li>)
+        lis.push(<li key={t.id}><a id={t.id} href={'/read' + t.id} onClick={(event)=>{
+            event.preventDefault(); // 태그의 기본 기능 실행 방지
+            pros.onChangeMode(event.target.id); // event 를 실행하는 태그의 id 값을 가져온다는 뜻이다.
+        }}>{t.title}</a></li>)
     }
     return  <nav>
             <ol>
@@ -38,8 +44,12 @@ function App() {
 
   return (
     <div>
-        <Header title="React"></Header> {/*사용자 정의 태그로 Header 를 가져온다.*/}
-        <Nav topics={topics}></Nav>
+        <Header title="React" onChangeMode={()=>{
+            alert('Header'); // header 라는 메세지를 경고창으로 띄운다.
+        }}></Header> {/*사용자 정의 태그로 Header 를 가져온다.*/}
+        <Nav topics={topics} onChangeMode={(id)=>{
+            alert(id);
+        }}></Nav>
         <Article title="Welcome" body="Hello , WEB"></Article>
 
     </div>
